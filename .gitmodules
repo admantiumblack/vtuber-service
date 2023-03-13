@@ -1,0 +1,15 @@
+[submodule "vtuber-etl-service"]
+	path = vtuber-etl-service
+	url = git@github.com:admantiumblack/vtuber-etl-service.git
+[submodule "vtuber-frontend-service"]
+	path = vtuber-frontend-service
+	url = git@github.com:admantiumblack/vtuber-frontend-service.git
+[submodule "vtuber-video-services"]
+	path = vtuber-video-services
+	url = git@github.com:admantiumblack/vtuber-video-services.git
+[submodule "vtuber-discography-services"]
+	path = vtuber-discography-services
+	url = git@github.com:admantiumblack/vtuber-discography-services.git
+[submodule "vtuber-art-services"]
+	path = vtuber-art-services
+	url = git@github.com:admantiumblack/vtuber-art-services.git
