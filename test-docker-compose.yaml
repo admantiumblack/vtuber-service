@@ -20,32 +20,11 @@ services:
             - MINIO_ROOT_USER=minio-root-user
             - MINIO_ROOT_PASSWORD=minio-root-password
 
-    etl_server:
-        build: vtuber-etl-service
-        restart: always
-        depends_on:
-            - database
-            - object_storage
+    frontend_server:
+        build: ./vtuber-frontend-service
+        ports:
+            - 3000:3000
         env_file:
             - ./vtuber-etl-service/.env.example
-        environment:
-            - LOAD_EX=n
-            - EXECUTOR=Local
-        logging:
-            options:
-                max-size: 10m
-                max-file: "3"
-        volumes:
-            - ./vtuber-etl-service/dags:/usr/local/airflow/dags
-            - ./vtuber-etl-service/logs:/opt/airflow/logs
-        ports:
-            - "8080:8080"
-        command: webserver
-        healthcheck:
-            test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
-            interval: 30s
-            timeout: 30s
-            retries: 3
         links:
-            - "database:mysql"
-            - "object_storage:minio"
+            - database:mysql
