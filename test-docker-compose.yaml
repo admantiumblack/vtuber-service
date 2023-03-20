@@ -28,3 +28,16 @@ services:
             - ./vtuber-etl-service/.env.example
         links:
             - database:mysql
+    
+    video_service:
+        build: ./vtuber-video-services
+        ports:
+            - 8000:8000
+        env_file:
+            - ./vtuber-video-services/.env.example
+        volumes:
+            - ./vtuber-video-services:/project
+        depends_on:
+            - database
+        links:
+            - database:mysql
