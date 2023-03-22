@@ -23,8 +23,12 @@ services:
         build: ./vtuber-frontend-service
         ports:
             - 3000:3000
-        env_file:
-            - ./vtuber-etl-service/.env.example
+        # env_file:
+        #     - ./vtuber-frontend-server/.env.example
+        volumes:
+            - ./vtuber-frontend-service:/app
+            - /app/node_modules
+            - /app/.next
         links:
             - database:mysql
     
