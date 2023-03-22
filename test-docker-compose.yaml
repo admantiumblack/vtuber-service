@@ -42,13 +42,19 @@ services:
             - database:mysql
         
     discography_service:
-        image: docker.io/bitnami/laravel:10
+        build: ./vtuber-discography-services
         ports:
             - 8001:8000
         env_file:
             - ./vtuber-discography-services/.env.example
-        # volumes:
-        #     - ./vtuber-discography-services:/app
+        volumes:
+            - ./vtuber-discography-services/app:/app/app
+            - ./vtuber-discography-services/config:/app/config
+            - ./vtuber-discography-services/database:/app/database
+            - ./vtuber-discography-services/public:/app/public
+            - ./vtuber-discography-services/resources:/app/resources
+            - ./vtuber-discography-services/routes:/app/routes
+            - ./vtuber-discography-services/tests:/app/tests
         depends_on:
             - database
         links:
@@ -67,3 +73,5 @@ services:
             - database
         links:
             - database:mysql
+volumes:
+    ignore:
