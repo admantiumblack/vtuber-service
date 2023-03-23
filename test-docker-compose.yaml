@@ -9,7 +9,8 @@ services:
             - MYSQL_DATABASE=vtuber_db
         ports:
             - 3306:3306
-
+        volumes:
+            - ./database.sql:/docker-entrypoint-initdb.d/database.sql
     object_storage:
         image: bitnami/minio:latest
         ports:
@@ -59,6 +60,9 @@ services:
             - ./vtuber-discography-services/resources:/app/resources
             - ./vtuber-discography-services/routes:/app/routes
             - ./vtuber-discography-services/tests:/app/tests
+            - ./vtuber-discography-services/composer.json:/app/composer.json
+            - ./vtuber-discography-services/composer.lock:/app/composer.lock
+            - ./vtuber-discography-services/package.json:/app/package.json
         depends_on:
             - database
         links:

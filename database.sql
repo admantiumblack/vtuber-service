@@ -1,117 +1,86 @@
--- Create Company table
+-- Adminer 4.8.1 MySQL 8.0.32 dump
 
-CREATE TABLE company(
-    id INT NOT NULL AUTO_INCREMENT,
-    name varchar(255) NOT NULL,
-    PRIMARY KEY (id)
-);
+SET NAMES utf8;
+SET time_zone = '+00:00';
+SET foreign_key_checks = 0;
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
--- Populate company table
+USE `vtuber_db`;
 
-INSERT INTO company(name) VALUES
-(),
-(),
-();
+SET NAMES utf8mb4;
 
--- Create vtuber table
-
-CREATE TABLE vtuber(
-    id INT NOT NULL AUTO_INCREMENT,
-    name varchar(255) NOT NULL,
-    channel_name varchar(255) NOT NULL, 
-    PRIMARY KEY (id)
-);
-
--- Populate vtuber table
-
-INSERT INTO vtuber() VALUES 
-(),
-(),
-();
-
--- Create company mapping table
-
-CREATE TABLE company_mapping(
-    id INT NOT NULL AUTO_INCREMENT,
-    company_id INT NOT NULL,
-    vtuber_id INT NOT NULL,
-    begin_date DATE NOT NULL,
-    end_date DATE NOT NULL,
-    PRIMARY KEY (id),
-    index(company_id),
-    index(vtuber_id),
-    FOREIGN KEY (company_id) REFERENCES company(id),
-    FOREIGN KEY (vtuber_id) REFERENCES vtuber(id)
-);
-
--- Populate company mapping table
-
-INSERT INTO company_mapping() VALUES
-(),
-(),
-();
+DROP TABLE IF EXISTS `channel_playlist`;
+CREATE TABLE `channel_playlist` (
+  `channel_id` int unsigned NOT NULL,
+  `playlist_id` varchar(32) NOT NULL,
+  `playlist_type` varchar(10) NOT NULL,
+  PRIMARY KEY (`playlist_id`),
+  KEY `channel_id` (`channel_id`),
+  CONSTRAINT `channel_playlist_ibfk_2` FOREIGN KEY (`channel_id`) REFERENCES `vtuber_platform` (`channel_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- Create stream platform table
+DROP TABLE IF EXISTS `company`;
+CREATE TABLE `company` (
+  `company_id` int unsigned NOT NULL AUTO_INCREMENT,
+  `company_name` varchar(50) NOT NULL,
+  PRIMARY KEY (`company_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE stream_platform(
-    id INT NOT NULL AUTO_INCREMENT,
-    name varchar(255) NOT NULL,
-    PRIMARY KEY (id)
-);
+
+DROP TABLE IF EXISTS `stream_platform`;
+CREATE TABLE `stream_platform` (
+  `platform_id` int unsigned NOT NULL AUTO_INCREMENT,
+  `platform_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  PRIMARY KEY (`platform_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- Populate stream platform table
+DROP TABLE IF EXISTS `vtuber`;
+CREATE TABLE `vtuber` (
+  `vtuber_id` int unsigned NOT NULL AUTO_INCREMENT,
+  `channel_name` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `vtuber_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  PRIMARY KEY (`vtuber_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
-INSERT INTO stream_platform(name) VALUES
-(),
-(),
-();
 
--- Create platfrom mapping table 
+DROP TABLE IF EXISTS `vtuber_company`;
+CREATE TABLE `vtuber_company` (
+  `vtuber_id` int unsigned NOT NULL,
+  `compay_id` int unsigned NOT NULL,
+  `begin_date` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `end_date` datetime NOT NULL,
+  PRIMARY KEY (`vtuber_id`,`compay_id`,`end_date`),
+  KEY `compay_id` (`compay_id`),
+  CONSTRAINT `vtuber_company_ibfk_4` FOREIGN KEY (`vtuber_id`) REFERENCES `vtuber` (`vtuber_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `vtuber_company_ibfk_5` FOREIGN KEY (`compay_id`) REFERENCES `company` (`company_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE platform_mapping(
-    id INT NOT NULL AUTO_INCREMENT,
-    -- this one rol idk rada weird channel ID dri mana also Platform ID dari mana juga 
-    -- also manggil channel name di table ini tpi dia bukan PK di table vtuber
-);
 
--- Populate platform_mapping table 
+DROP TABLE IF EXISTS `vtuber_platform`;
+CREATE TABLE `vtuber_platform` (
+  `channel_id` int unsigned NOT NULL AUTO_INCREMENT,
+  `vtuber_id` int unsigned NOT NULL,
+  `platform_id` int unsigned NOT NULL,
+  `channel_name` varchar(75) COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `begin_date` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `end_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`channel_id`),
+  KEY `vtuber_id` (`vtuber_id`),
+  KEY `platform_id` (`platform_id`),
+  CONSTRAINT `vtuber_platform_ibfk_4` FOREIGN KEY (`vtuber_id`) REFERENCES `vtuber` (`vtuber_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `vtuber_platform_ibfk_5` FOREIGN KEY (`platform_id`) REFERENCES `stream_platform` (`platform_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
-INSERT INTO platform_mapping() VALUES 
-(),
-(),
-();
 
--- Create spotify table 
+DROP TABLE IF EXISTS `vtuber_spotify`;
+CREATE TABLE `vtuber_spotify` (
+  `vtuber_id` int unsigned NOT NULL,
+  `spotify_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  PRIMARY KEY (`vtuber_id`),
+  CONSTRAINT `vtuber_spotify_ibfk_2` FOREIGN KEY (`vtuber_id`) REFERENCES `vtuber` (`vtuber_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE spotify(
-    id INT NOT NULL AUTO_INCREMENT,
-    vtuber_id INT NOT NULL,
-    PRIMARY KEY(id),
-    index(vtuber_id),
-    FOREIGN KEY (vtuber_id) REFERENCES vtuber(id)
-);
 
--- Populate spotify table 
-
-INSERT INTO spotify() VALUES
-(),
-(),
-();
-
--- Create playlist table 
-
-CREATE TABLE playlist(
-    id INT NOT NULL AUTO_INCREMENT,
-    type text,
-    -- again channel id come from where? 
-    PRIMARY KEY (id)
-);
-
--- Populate playlist table
-
-INSERT INTO playlist() VALUES 
-(),
-(),
-();
+-- 2023-03-23 07:28:29
