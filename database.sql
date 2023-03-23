@@ -39,7 +39,6 @@ CREATE TABLE `stream_platform` (
 DROP TABLE IF EXISTS `vtuber`;
 CREATE TABLE `vtuber` (
   `vtuber_id` int unsigned NOT NULL AUTO_INCREMENT,
-  `channel_name` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `vtuber_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
   PRIMARY KEY (`vtuber_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
