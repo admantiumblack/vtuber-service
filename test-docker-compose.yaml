@@ -39,6 +39,9 @@ services:
             - /app/.next
         links:
             - database:mysql
+            - video_service:video
+            - discography_service:discography
+            - art_service:art
     
     video_service:
         build: ./vtuber-video-services
