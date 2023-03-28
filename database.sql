@@ -20,7 +20,9 @@ CREATE TABLE `channel_playlist` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `channel_playlist` (`playlist_id`, `channel_id`, `playlist_type`) VALUES
-('UUYz_5n-uDuChHtLo7My1HnQ',	'UCYz_5n-uDuChHtLo7My1HnQ',	'uploads');
+('UUahgMxSIQ2zIRrPKhM6Mjvg',	'UCahgMxSIQ2zIRrPKhM6Mjvg',	'uploads'),
+('UUYz_5n-uDuChHtLo7My1HnQ',	'UCYz_5n-uDuChHtLo7My1HnQ',	'uploads')
+ON DUPLICATE KEY UPDATE `playlist_id` = VALUES(`playlist_id`), `channel_id` = VALUES(`channel_id`), `playlist_type` = VALUES(`playlist_type`);
 
 DROP TABLE IF EXISTS `company`;
 CREATE TABLE `company` (
@@ -31,7 +33,8 @@ CREATE TABLE `company` (
 
 INSERT INTO `company` (`company_id`, `company_name`) VALUES
 (1,	'hololive'),
-(2,	'nijisanji');
+(2,	'nijisanji')
+ON DUPLICATE KEY UPDATE `company_id` = VALUES(`company_id`), `company_name` = VALUES(`company_name`);
 
 DROP TABLE IF EXISTS `stream_platform`;
 CREATE TABLE `stream_platform` (
@@ -41,7 +44,8 @@ CREATE TABLE `stream_platform` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `stream_platform` (`platform_id`, `platform_name`) VALUES
-(1,	'youtube');
+(1,	'youtube')
+ON DUPLICATE KEY UPDATE `platform_id` = VALUES(`platform_id`), `platform_name` = VALUES(`platform_name`);
 
 DROP TABLE IF EXISTS `vtuber`;
 CREATE TABLE `vtuber` (
@@ -51,8 +55,9 @@ CREATE TABLE `vtuber` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 INSERT INTO `vtuber` (`vtuber_id`, `vtuber_name`) VALUES
-(1,	'Moona Hoshinova'),
-(2,	'Mika Melatika');
+(1,	'Kureiji Ollie'),
+(2,	'Mika Melatika')
+ON DUPLICATE KEY UPDATE `vtuber_id` = VALUES(`vtuber_id`), `vtuber_name` = VALUES(`vtuber_name`);
 
 DROP TABLE IF EXISTS `vtuber_company`;
 CREATE TABLE `vtuber_company` (
@@ -68,7 +73,8 @@ CREATE TABLE `vtuber_company` (
 
 INSERT INTO `vtuber_company` (`vtuber_id`, `company_id`, `begin_date`, `end_date`) VALUES
 (1,	1,	'2012-01-01 00:00:00',	'9999-12-31 00:00:00'),
-(2,	2,	'2012-01-01 00:00:00',	'9999-12-31 00:00:00');
+(2,	2,	'2012-01-01 00:00:00',	'9999-12-31 00:00:00')
+ON DUPLICATE KEY UPDATE `vtuber_id` = VALUES(`vtuber_id`), `company_id` = VALUES(`company_id`), `begin_date` = VALUES(`begin_date`), `end_date` = VALUES(`end_date`);
 
 DROP TABLE IF EXISTS `vtuber_platform`;
 CREATE TABLE `vtuber_platform` (
@@ -86,7 +92,9 @@ CREATE TABLE `vtuber_platform` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 INSERT INTO `vtuber_platform` (`channel_id`, `vtuber_id`, `platform_id`, `channel_name`, `begin_date`, `end_date`) VALUES
-('UCYz_5n-uDuChHtLo7My1HnQ',	1,	1,	'Moona Hoshinova hololive-ID',	'2023-03-27 15:44:03',	'9999-12-31 00:00:00');
+('UCahgMxSIQ2zIRrPKhM6Mjvg',	2,	1,	'Mika Melatika【NIJISANJI・にじさんじ】',	'2001-01-01 00:00:00',	'9999-12-31 00:00:00'),
+('UCYz_5n-uDuChHtLo7My1HnQ',	1,	1,	'Kureiji Ollie Ch. hololive-ID',	'2023-03-28 08:22:05',	'9999-12-31 00:00:00')
+ON DUPLICATE KEY UPDATE `channel_id` = VALUES(`channel_id`), `vtuber_id` = VALUES(`vtuber_id`), `platform_id` = VALUES(`platform_id`), `channel_name` = VALUES(`channel_name`), `begin_date` = VALUES(`begin_date`), `end_date` = VALUES(`end_date`);
 
 DROP TABLE IF EXISTS `vtuber_spotify`;
 CREATE TABLE `vtuber_spotify` (
@@ -97,4 +105,4 @@ CREATE TABLE `vtuber_spotify` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- 2023-03-28 03:47:42
+-- 2023-03-28 08:22:15
