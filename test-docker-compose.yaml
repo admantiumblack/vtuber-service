@@ -17,15 +17,6 @@ services:
         - 8080:8080
         links:
             - database
-            
-    object_storage:
-        image: bitnami/minio:latest
-        ports:
-            - '9000:9000'
-            - '9001:9001'
-        environment:
-            - MINIO_ROOT_USER=minio-root-user
-            - MINIO_ROOT_PASSWORD=minio-root-password
 
     frontend_server:
         build: ./vtuber-frontend-service
@@ -87,6 +78,19 @@ services:
         #     - ./vtuber-art-services/.env.example
         volumes:
             - ./vtuber-art-services:/usr/local/apps/app/dev
+        depends_on:
+            - database
+        links:
+            - database:mysql
+    
+    user_service:
+        build: ./vtuber-user-service
+        ports:
+            - 8002:8000
+        env_file:
+            - ./vtuber-user-service/.env
+        volumes:
+            - ./vtuber-user-service:/project
         depends_on:
             - database
         links:

@@ -1,6 +1,3 @@
-[submodule "vtuber-etl-service"]
-	path = vtuber-etl-service
-	url = git@github.com:admantiumblack/vtuber-etl-service.git
 [submodule "vtuber-frontend-service"]
 	path = vtuber-frontend-service
 	url = git@github.com:admantiumblack/vtuber-frontend-service.git
@@ -13,3 +10,6 @@
 [submodule "vtuber-art-services"]
 	path = vtuber-art-services
 	url = git@github.com:admantiumblack/vtuber-art-services.git
+[submodule "vtuber-user-service"]
+	path = vtuber-user-service
+	url = git@github.com:admantiumblack/vtuber-user-service.git
