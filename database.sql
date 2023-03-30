@@ -60,16 +60,16 @@ ON DUPLICATE KEY UPDATE `vtuber_id` = VALUES(`vtuber_id`), `vtuber_name` = VALUE
 DROP TABLE IF EXISTS `vtuber_company`;
 CREATE TABLE `vtuber_company` (
   `vtuber_id` int unsigned NOT NULL,
-  `compay_id` int unsigned NOT NULL,
+  `company_id` int unsigned NOT NULL,
   `begin_date` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   `end_date` datetime NOT NULL,
-  PRIMARY KEY (`vtuber_id`,`compay_id`,`end_date`),
-  KEY `compay_id` (`compay_id`),
+  PRIMARY KEY (`vtuber_id`,`company_id`,`end_date`),
+  KEY `company_id` (`company_id`),
   CONSTRAINT `vtuber_company_ibfk_4` FOREIGN KEY (`vtuber_id`) REFERENCES `vtuber` (`vtuber_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `vtuber_company_ibfk_5` FOREIGN KEY (`compay_id`) REFERENCES `company` (`company_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT `vtuber_company_ibfk_5` FOREIGN KEY (`company_id`) REFERENCES `company` (`company_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `vtuber_company` (`vtuber_id`, `compay_id`, `begin_date`, `end_date`) VALUES
+INSERT INTO `vtuber_company` (`vtuber_id`, `company_id`, `begin_date`, `end_date`) VALUES
 (1,	1,	'2012-01-01 00:00:00',	'9999-12-31 00:00:00'),
 (2,	2,	'2012-01-01 00:00:00',	'9999-12-31 00:00:00')
 ON DUPLICATE KEY UPDATE `vtuber_id` = VALUES(`vtuber_id`), `company_id` = VALUES(`company_id`), `begin_date` = VALUES(`begin_date`), `end_date` = VALUES(`end_date`);
