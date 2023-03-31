@@ -65,7 +65,7 @@ INSERT INTO `vtuber` (`vtuber_id`, `vtuber_name`) VALUES
 (7,	'Futakuchi Mana'),
 (8,	'Enna Alouette'),
 (9,	'Neuro-sama'),
-(10,	'Aoi Tokimori')
+(10, 'Tokimori Aoi')
 ON DUPLICATE KEY UPDATE `vtuber_id` = VALUES(`vtuber_id`), `vtuber_name` = VALUES(`vtuber_name`);
 
 DROP TABLE IF EXISTS `vtuber_company`;
