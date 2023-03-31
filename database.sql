@@ -114,6 +114,7 @@ INSERT INTO `vtuber_platform` (`channel_id`, `vtuber_id`, `platform_id`, `channe
 ('UChgTyjG-pdNvxxhdsXfHQ5Q',	6,	1,	'Pavolia Reine Ch. hololive-ID',	'2001-01-01 00:00:00',	'9999-12-31 00:00:00'),
 ('UCJFZiqLMntJufDCHc6bQixg',	3,	1,	'Suisei Channel',	'2012-01-01 00:00:00',	'9999-12-31 00:00:00'),
 ('UCL_qhgtOy0dy1Agp8vkySQg',	5,	1,	'Mori Calliope Ch. hololive-EN',	'2023-03-31 15:22:20',	'9999-12-31 00:00:00'),
+('UCLHmLrj4pHHg3-iBJn_CqxA',	9,	1,	'Neuro-sama',	'2001-01-01 00:00:00',	'9999-12-31 00:00:00'),
 ('UCP0BspO_AMEe3aQqqpo89Dg',	1,	1,	'Moona Hoshinova hololive-ID',	'2023-03-31 15:45:54',	'9999-12-31 00:00:00'),
 ('UCqGtqSn0NiOCottKpYwBc4w',	7,	1,	'Futakuchi Mana Ch. | 二口魔菜',	'2001-01-01 00:00:00',	'9999-12-31 00:00:00'),
 ('UCR6qhsLpn62WVxCBK1dkLow',	8,	1,	'Enna Alouette【NIJISANJI EN】',	'2001-01-01 00:00:00',	'9999-12-31 00:00:00'),
@@ -141,4 +142,4 @@ INSERT INTO `vtuber_spotify` (`vtuber_id`, `spotify_id`) VALUES
 (10,	'0xqe5pf6kDFg2IIyUQX08T')
 ON DUPLICATE KEY UPDATE `vtuber_id` = VALUES(`vtuber_id`), `spotify_id` = VALUES(`spotify_id`);
 
--- 2023-03-31 15:46:02
+-- 2023-03-31 15:50:06
