@@ -16,11 +16,11 @@ CREATE TABLE `channel_playlist` (
   `playlist_type` varchar(10) NOT NULL,
   PRIMARY KEY (`playlist_id`),
   KEY `channel_id` (`channel_id`),
-  CONSTRAINT `channel_playlist_ibfk_1` FOREIGN KEY (`channel_id`) REFERENCES `vtuber_platform` (`channel_id`)
+  CONSTRAINT `channel_playlist_ibfk_2` FOREIGN KEY (`channel_id`) REFERENCES `vtuber_platform` (`channel_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `channel_playlist` (`playlist_id`, `channel_id`, `playlist_type`) VALUES
-('UUYz_5n-uDuChHtLo7My1HnQ',	'UCYz_5n-uDuChHtLo7My1HnQ',	'uploads')
+('UUYz_5n-uDuChHtLo7My1HnQ',	'UCP0BspO_AMEe3aQqqpo89Dg',	'uploads')
 ON DUPLICATE KEY UPDATE `playlist_id` = VALUES(`playlist_id`), `channel_id` = VALUES(`channel_id`), `playlist_type` = VALUES(`playlist_type`);
 
 DROP TABLE IF EXISTS `company`;
@@ -114,10 +114,10 @@ INSERT INTO `vtuber_platform` (`channel_id`, `vtuber_id`, `platform_id`, `channe
 ('UChgTyjG-pdNvxxhdsXfHQ5Q',	6,	1,	'Pavolia Reine Ch. hololive-ID',	'2001-01-01 00:00:00',	'9999-12-31 00:00:00'),
 ('UCJFZiqLMntJufDCHc6bQixg',	3,	1,	'Suisei Channel',	'2012-01-01 00:00:00',	'9999-12-31 00:00:00'),
 ('UCL_qhgtOy0dy1Agp8vkySQg',	5,	1,	'Mori Calliope Ch. hololive-EN',	'2023-03-31 15:22:20',	'9999-12-31 00:00:00'),
+('UCP0BspO_AMEe3aQqqpo89Dg',	1,	1,	'Moona Hoshinova hololive-ID',	'2023-03-31 15:45:54',	'9999-12-31 00:00:00'),
 ('UCqGtqSn0NiOCottKpYwBc4w',	7,	1,	'Futakuchi Mana Ch. | 二口魔菜',	'2001-01-01 00:00:00',	'9999-12-31 00:00:00'),
 ('UCR6qhsLpn62WVxCBK1dkLow',	8,	1,	'Enna Alouette【NIJISANJI EN】',	'2001-01-01 00:00:00',	'9999-12-31 00:00:00'),
-('UCRWF6QSuklmwY3UJHyVTQ1w',	10,	1,	'Aoi Tokimori / 時守あおい [PRISM Project]',	'2001-01-01 00:00:00',	'9999-12-31 00:00:00'),
-('UCYz_5n-uDuChHtLo7My1HnQ',	1,	1,	'Moona Hoshinova hololive-ID',	'2023-03-27 15:44:03',	'9999-12-31 00:00:00')
+('UCRWF6QSuklmwY3UJHyVTQ1w',	10,	1,	'Aoi Tokimori / 時守あおい [PRISM Project]',	'2001-01-01 00:00:00',	'9999-12-31 00:00:00')
 ON DUPLICATE KEY UPDATE `channel_id` = VALUES(`channel_id`), `vtuber_id` = VALUES(`vtuber_id`), `platform_id` = VALUES(`platform_id`), `channel_name` = VALUES(`channel_name`), `begin_date` = VALUES(`begin_date`), `end_date` = VALUES(`end_date`);
 
 DROP TABLE IF EXISTS `vtuber_spotify`;
@@ -141,4 +141,4 @@ INSERT INTO `vtuber_spotify` (`vtuber_id`, `spotify_id`) VALUES
 (10,	'0xqe5pf6kDFg2IIyUQX08T')
 ON DUPLICATE KEY UPDATE `vtuber_id` = VALUES(`vtuber_id`), `spotify_id` = VALUES(`spotify_id`);
 
--- 2023-03-31 15:41:53
+-- 2023-03-31 15:46:02
