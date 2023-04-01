@@ -33,6 +33,7 @@ services:
             - video_service:video
             - discography_service:discography
             - art_service:art
+            - user_service:user
     
     video_service:
         build: ./vtuber-video-services
