@@ -1,24 +1,72 @@
 version: '3.7'
 services:
-    etl_server:
-        build: vtuber-etl-service
-        restart: always
-        env_file:
-            - ./vtuber-etl-service/.env
-        environment:
-            - LOAD_EX=n
-            - EXECUTOR=Local
-        logging:
-            options:
-                max-size: 10m
-                max-file: "3"
-        volumes:
-            - ./vtuber-etl-service/dags:/usr/local/airflow/dags
+    frontend_server:
+        build: ./vtuber-frontend-service
         ports:
-            - "8080:8080"
-        command: webserver
-        healthcheck:
-            test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
-            interval: 30s
-            timeout: 30s
-            retries: 3
+            - 3000:3000
+        env_file:
+            - ./vtuber-frontend-service/.env
+        volumes:
+            - ./vtuber-frontend-service:/app
+            - /app/node_modules
+            - /app/.next
+        depends_on:
+            - video_service
+            - discography_service
+            - art_service
+            - user_service
+        links:
+            - video_service:video
+            - discography_service:discography
+            - art_service:art
+            - user_service:user
+        restart: on-failure
+    
+    video_service:
+        build: ./vtuber-video-services
+        ports:
+            - 8000:8000
+        env_file:
+            - ./vtuber-video-services/.env
+        volumes:
+            - ./vtuber-video-services:/project
+        restart: on-failure
+        
+    discography_service:
+        build: ./vtuber-discography-services
+        ports:
+            - 8001:8000
+        env_file:
+            - ./vtuber-discography-services/.env
+        volumes:
+            - ./vtuber-discography-services/app:/app/app
+            - ./vtuber-discography-services/config:/app/config
+            - ./vtuber-discography-services/database:/app/database
+            - ./vtuber-discography-services/public:/app/public
+            - ./vtuber-discography-services/resources:/app/resources
+            - ./vtuber-discography-services/routes:/app/routes
+            - ./vtuber-discography-services/tests:/app/tests
+            - ./vtuber-discography-services/composer.json:/app/composer.json
+            - ./vtuber-discography-services/composer.lock:/app/composer.lock
+            - ./vtuber-discography-services/package.json:/app/package.json
+        restart: on-failure
+        
+    art_service:
+        build: ./vtuber-art-services
+        ports:
+            - 3001:3000
+        env_file:
+            - ./vtuber-art-services/.env
+        volumes:
+            - ./vtuber-art-services:/usr/local/apps/app/dev
+        restart: on-failure
+    
+    user_service:
+        build: ./vtuber-user-service
+        ports:
+            - 8002:8000
+        env_file:
+            - ./vtuber-user-service/.env
+        volumes:
+            - ./vtuber-user-service:/project
+        restart: on-failure
